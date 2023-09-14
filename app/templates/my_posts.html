@@ -1,0 +1,26 @@
+{% extends 'layout/base.html' %}
+{% block title %}
+Отклики
+{% endblock title %}
+{% block content %}
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
+<table>
+    <tr>
+        <td style="text-align:center">Пост</td>
+        <td style="text-align:center">Пользователь</td>
+        <td style="text-align:center">Отклик</td>
+        <td style="text-align:center">Действие</td>
+    </tr>
+{% for m in filter.qs %}
+    <tr>
+        <td style="text-align:center"><a href="/posts/post/{{ m.pk }}">{{ m.post_id }}</a></td>
+        <td style="text-align:center">{{ m.user_id }}</td>
+        <td style="text-align:center">{{ m.resp_text }}</td>
+        <td style="text-align:center"><a href="resp/send_message?r={{ m.pk }}"> Принять</a> / <a href="resp/{{ m.pk }}/delete"> Удалить</a></td></td>
+    </tr>
+{% endfor %}
+    </table>
+{% endblock %}

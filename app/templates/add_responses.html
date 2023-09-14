@@ -1,0 +1,26 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<h1>{{post}}</h1>
+
+<form action="{% url 'addresp' %}?id={{ post.pk }}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+{% for f in form %}
+<p><label class="form-label">{{f.label}}: </label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+
+
+    <button type="submit">Откликнуться</button>
+</form>
+{% else %}
+<h2>Эта страница доступна авторизованным пользователям!</h2>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock title %}
+{% block content %}
+<ul class="list-articles">
+	{% for p in posts %}
+			<li><div class="article-panel">
+	<p class="first">Категория: {{p.category}}</p>
+	<p class="last">Отклики: {{ resp }}</p><br>
+	<p class="last">Дата: {{p.data_create|date:"d-m-Y H:i:s"}}</p>
+	<p>Автор: {{p.user_id}}</p>
+</div>
+{% if p.content %}
+	<p><img class="img-article-left thumb" src="{{p.content.url}}"></p>
+{% endif %}
+
+				<h2>{{p.heading}}</h2>
+	{% autoescape on %}
+	{{p.text|truncatewords:50}}
+	{% endautoescape %}
+			<div class="clear"></div>
+			<p class="link-read-post"><a class="open" href="/posts/post/{{ p.pk }}">Читать пост</a></p>
+			</li>
+	{% endfor %}
+
+</ul>
+{% endblock content %}

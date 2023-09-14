@@ -1,0 +1,14 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<h1>{{post.heading}}</h1>
+
+{% if post.content %}
+<p><img class="img-article-left" src="{{post.content.url}}"></p>
+{% endif %}
+
+{{post.text|linebreaks}}
+{% if request.user.is_authenticated %}
+<p class="link-read-post"><a class="open" href="/posts/post/resp?id={{ post.pk }}">Откликнуться</a></p>
+{% endif %}
+{% endblock %}
